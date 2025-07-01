@@ -22,7 +22,7 @@ A simple URL shortener REST API built with Go and Gin.
 ### Clone the repository
 
 ```sh
-git clone https://github.com/yourusername/shorter-rest-api.git
+git clone https://github.com/DoHuy/shorter-rest-api.git
 cd shorter-rest-api
 ```
 
@@ -59,8 +59,7 @@ make test
 Build and run the app with Docker:
 
 ```sh
-docker build -t shorter-rest-api .
-docker run -p 8080:8080 shorter-rest-api
+make docker-run
 ```
 
 ## API Documentation

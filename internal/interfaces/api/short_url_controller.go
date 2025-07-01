@@ -111,7 +111,7 @@ func (c *ShortUrlController) CreateShortUrl(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	if !isDuplicate {
+	if isDuplicate {
 		ctx.JSON(http.StatusConflict, gin.H{"error": "Short URL already exists"})
 		return
 	}

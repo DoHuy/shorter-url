@@ -7,19 +7,14 @@ SWAGGER_DIR=docs
 all: build
 
 build:
-    go build -o $(APP_NAME) .
+    GOOS=linux GOARCH=amd64 go build -o  $(APP_NAME) .
 
-run: build
-    $(APP_NAME)
+run:
+    ./$(APP_NAME)
 
 test:
     go test ./...
 
 
-docker-build:
-    docker build -t $(APP_NAME) .
-
 docker-run:
-    docker run -p 8080:8080 $(APP_NAME)
-
-devbox:
+    docker compose -f docker-compose.yml up -d

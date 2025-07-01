@@ -35,14 +35,14 @@ func NewShortUrlUseCase(config *config.Config, cacheService cache.IRedisCache) S
 func (uc *shortUrlUseCase) ValidateDuplicateShortUrl(originalUrl string) (bool, error) {
 
 	// Get short URL by code
-	shortUrl, err := uc.cacheService.Get(originalUrl)
+	isExist, err := uc.cacheService.Exists(originalUrl)
 	if err != nil && !strings.Contains(err.Error(), "redigo: nil returned") {
 		return false, fmt.Errorf("failed to find short url: %w", err)
 	}
-	if shortUrl == nil {
+	if !isExist {
 		return true, nil // No duplicate found
 	}
-	return false, nil
+	return isExist, nil
 }
 
 func (uc *shortUrlUseCase) GetShortUrlByCode(ctx context.Context, code string) (*dto.GetShortUrlResponse, error) {
