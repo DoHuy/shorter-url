@@ -7,20 +7,14 @@ SWAGGER_DIR=docs
 all: build
 
 build:
-    go build -o $(BIN_DIR)/$(APP_NAME) ./cmd/...
+    go build -o $(APP_NAME) .
 
 run: build
-    ./$(BIN_DIR)/$(APP_NAME)
+    $(APP_NAME)
 
 test:
     go test ./...
 
-clean:
-    rm -rf $(BIN_DIR)/
-    rm -rf $(SWAGGER_DIR)/
-
-swag:
-    swag init --output $(SWAGGER_DIR)
 
 docker-build:
     docker build -t $(APP_NAME) .

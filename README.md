@@ -54,14 +54,6 @@ make run
 make test
 ```
 
-### Generate Swagger Documentation
-
-```sh
-make swag
-```
-
-Swagger docs will be generated in the `docs/` directory.
-
 ### Using Docker
 
 Build and run the app with Docker:
