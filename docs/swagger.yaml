@@ -1,0 +1,108 @@
+definitions:
+  dto.CreateRequest:
+    properties:
+      original_url:
+        type: string
+    required:
+    - original_url
+    type: object
+  dto.CreateResponse:
+    properties:
+      id:
+        type: string
+      short_url:
+        type: string
+    type: object
+  dto.GetShortUrlResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      original_url:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/shortlinks:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new shorturl
+      parameters:
+      - description: URL object
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreateResponse'
+        "400":
+          description: Bad Request - Invalid input
+        "409":
+          description: Conflict - Short URL already exists
+        "500":
+          description: Internal Server Error
+      summary: Create shorturl
+      tags:
+      - shorturl
+  /api/shortlinks/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a specific shorturl by its ID
+      parameters:
+      - description: short id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.GetShortUrlResponse'
+        "400":
+          description: id is required
+        "500":
+          description: Internal Server Error
+      summary: Get shorturl by ID
+      tags:
+      - shorturl
+  /shortlinks/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Redirects to the original URL for the given short code
+      parameters:
+      - description: short id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.GetShortUrlResponse'
+        "302":
+          description: Found - Redirects to original URL
+        "400":
+          description: Bad Request - Invalid input
+        "500":
+          description: Internal Server Error
+      summary: Redirect to original URL
+      tags:
+      - shorturl
+swagger: "2.0"
