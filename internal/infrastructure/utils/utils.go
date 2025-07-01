@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-const MAXIMUM_SHORT_URL_COUNT = 1000000 // Maximum number of short URLs
 var (
 	letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 	rnd     = rand.New(rand.NewSource(time.Now().UnixNano()))
